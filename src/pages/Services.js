@@ -1,21 +1,67 @@
-// pages/events.js
+import React from 'react';
+import '../Style/Services.css'; // Make sure to import the CSS file you created
 
-import React from "react";
+const servicesData = [
+  {
+    id: 'surgery',
+    title: 'Surgery',
+    description: 'Planned, urgent and emergency operations for animals of any complexity.',
+    numServices: '78'
+  },
+  {
+    id: 'therapy',
+    title: 'Therapy',
+    description: 'Systematic actions for the treatment and prevention of diseases.',
+    numServices: '124'
+  },
+  {
+    id: 'cardiology',
+    title: 'Cardiology',
+    description: 'Taking care of your pet\'s cardiovascular system.',
+    numServices: '22'
+  },
+  {
+    id: 'diagnostics',
+    title: 'Diagnostics',
+    description: 'Diagnosis of pets is the basis of successful treatment.',
+    numServices: '96'
+  }
+];
 
+// Individual Service Card Component
+const ServiceCard = ({ title, description, numServices }) => {
+  return (
+    <div className="service-card">
+      <h2>{title}</h2>
+      <p>{description}</p>
+      <span>{numServices} services</span>
+      <button>Read more</button>
+    </div>
+  );
+};
+
+// Services Component
 const Services = () => {
-	return (
-		<div
-			style={{
-				display: "flex",
-				justifyContent: "centre",
-				alignItems: "centre",
-				height: "100vh",
-				backgroundColor: "white"
-			}}
-		>
-			<h1>Servicii </h1>
-		</div>
-	);
+  return (
+    <div className="services-section">
+      <h1>Our services</h1>
+      <div className="services-grid">
+        {servicesData.map((service) => (
+          <ServiceCard
+            key={service.id}
+            title={service.title}
+            description={service.description}
+            numServices={service.numServices}
+          />
+        ))}
+      </div>
+      <div className="appointment-section">
+        <h2>Make an appointment</h2>
+        <p>A wide range of veterinary services and specialists around the clock.</p>
+        <button>Book now</button>
+      </div>
+    </div>
+  );
 };
 
 export default Services;

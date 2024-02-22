@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { FIREBASE_AUTH } from '../firebase/firebase'; // Ensure you have the correct path
+import { FIREBASE_AUTH } from '../firebase/firebase'; 
 import { Link } from "react-router-dom";
 import "./Login.css"
 
@@ -11,7 +11,6 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       await signInWithEmailAndPassword(FIREBASE_AUTH, email, password);
-      // You might want to redirect the user or do something else on successful login
       alert('Login successful!');
     } catch (error) {
       alert('Login failed. Please check your credentials.');
@@ -19,7 +18,7 @@ const Login = () => {
   };
 
   return (
-    <div className='container'>
+    
     <div className="form-container">
       <div className="form-group">
         <label className="label">Email:</label>
@@ -44,7 +43,7 @@ const Login = () => {
         Don't have an account? <Link to="/register">Register here</Link>.
       </p>
     </div>
-    </div>
+  
   );
 };
 
