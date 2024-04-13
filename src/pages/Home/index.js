@@ -1,7 +1,7 @@
 // pages/index.js
 
 import React from 'react';
-import "../Style/Home.css";
+import "./Home.css";
 const Home = () => {
 return (
 	

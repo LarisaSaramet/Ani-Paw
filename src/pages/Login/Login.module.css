@@ -2,7 +2,7 @@
     background-color:white;
 }
 
-.form-container {
+.form_container {
     max-width: 300px;
     margin: 50px auto;
     padding: 20px;
@@ -12,7 +12,7 @@
     text-align: center;
   }
   
-  .form-group {
+  .form_group {
     margin-bottom: 15px;
   }
   
@@ -46,17 +46,17 @@
     background-color: #006666; /* A slightly darker Turquoise */
   }
   
-  .register-link {
+  .register_link {
     margin-top: 20px;
   }
   
   /* Styling for the Link component if needed */
-  .register-link a {
+  .register_link a {
     color: #008080;
     text-decoration: none;
   }
   
-  .register-link a:hover {
+  .register_link a:hover {
     text-decoration: underline;
   }
   

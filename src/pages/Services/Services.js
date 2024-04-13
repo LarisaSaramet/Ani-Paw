@@ -1,5 +1,5 @@
 import React from 'react';
-import '../Style/Services.css'; // Make sure to import the CSS file you created
+import './Services.css';
 
 const servicesData = [
   {
@@ -28,7 +28,7 @@ const servicesData = [
   }
 ];
 
-// Individual Service Card Component
+
 const ServiceCard = ({ title, description, numServices }) => {
   return (
     <div className="service-card">
@@ -40,7 +40,6 @@ const ServiceCard = ({ title, description, numServices }) => {
   );
 };
 
-// Services Component
 const Services = () => {
   return (
     <div className="services-section">

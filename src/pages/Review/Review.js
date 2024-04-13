@@ -1,6 +1,6 @@
 // Reviews.js
 import React from 'react';
-import '../Style/Review.css'; // Make sure to import the CSS for styling
+import './Review.css'; // Make sure to import the CSS for styling
 
 const reviewsData = [
   // ... (existing reviews)

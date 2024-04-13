@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { FIREBASE_AUTH } from '../firebase/firebase'; 
+import { FIREBASE_AUTH } from '../../firebase/firebase'; 
 import { Link } from "react-router-dom";
-import "./Login.css"
+import styles from "./Login.module.css"
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -19,27 +19,27 @@ const Login = () => {
 
   return (
     
-    <div className="form-container">
-      <div className="form-group">
-        <label className="label">Email:</label>
+    <div className={styles.form_container}>
+      <div className={styles.form_group}>
+        <label className={styles.label}>Email:</label>
         <input
-          className="input"
+          className={styles.input}
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
-      <div className="form-group">
-        <label className="label">Password:</label>
+      <div className={styles.form_group}>
+        <label className={styles.label}>Password:</label>
         <input
-          className="input"
+          className={styles.input}
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button className="btn" onClick={handleLogin}>Login</button>
-      <p className="register-link">
+      <button className={styles.btn} onClick={handleLogin}>Login</button>
+      <p className={styles.register_link}>
         Don't have an account? <Link to="/register">Register here</Link>.
       </p>
     </div>
