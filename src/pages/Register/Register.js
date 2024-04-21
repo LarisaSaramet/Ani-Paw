@@ -3,11 +3,12 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../firebase/firebase";
 import styles from "./Register.module.css";
 import Swal from "sweetalert2";
-
+import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { FIREBASE_DB as db } from "../../firebase/firebase";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [fullName, setFullName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
@@ -38,6 +39,16 @@ const Register = () => {
       setConfirmPasswordError("Passwords do not match");
     } else {
       setConfirmPasswordError("");
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(e.target.value)) {
+      setEmailError("Please enter a valid email");
+    } else {
+      setEmailError("");
     }
   };
 
@@ -82,25 +93,6 @@ const Register = () => {
       return;
     }
 
-    // Check if passwords match
-    if (password !== confirmPassword) {
-      setConfirmPasswordError("Passwords do not match");
-      return;
-    }
-
-    // Check if password is at least 8 characters long
-    if (password.length < 8) {
-      setPasswordError("Password must be at least 8 characters long");
-      return;
-    }
-
-    // Check if email is valid
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setEmailError("Please enter a valid email");
-      return;
-    }
-
     try {
       // Create a new user with email and password
       const userCredential = await createUserWithEmailAndPassword(
@@ -119,11 +111,16 @@ const Register = () => {
         address: address,
         isDoctor: false,
       });
-      alert("User added successfully!");
+      navigate("/signin");
     } catch (error) {
       // Handle any errors here
       if (error.code === "auth/email-already-in-use") {
-        setEmailError("There already exists an account with this email");
+        //setEmailError("There already exists an account with this email");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "There already exists an account with this email!",
+        });
       } else {
         console.error("Error creating user: ", error);
       }
@@ -154,7 +151,7 @@ const Register = () => {
           type="email"
           id="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleEmailChange}
         />
         {emailError && <p>{emailError}</p>}
       </div>

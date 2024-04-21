@@ -23,7 +23,7 @@ const Navbar = () => {
           <LogoContainer>
             <Logo />
           </LogoContainer>
-          <NavLink to="/home" activeStyle>
+          <NavLink to="/" activeStyle>
             Home
           </NavLink>
           <NavLink to="/team" activeStyle>

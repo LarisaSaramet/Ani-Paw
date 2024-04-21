@@ -1,24 +1,29 @@
-import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { FIREBASE_AUTH } from '../../firebase/firebase'; 
+import React, { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { FIREBASE_AUTH } from "../../firebase/firebase";
 import { Link } from "react-router-dom";
-import styles from "./Login.module.css"
+import styles from "./Login.module.css";
+import Swal from "sweetalert2";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
     try {
       await signInWithEmailAndPassword(FIREBASE_AUTH, email, password);
-      alert('Login successful!');
+      alert("Login successful!");
     } catch (error) {
-      alert('Login failed. Please check your credentials.');
+      // Use Swal.fire to display the error message
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Login failed!",
+      });
     }
   };
 
   return (
-    
     <div className={styles.form_container}>
       <div className={styles.form_group}>
         <label className={styles.label}>Email:</label>
@@ -38,12 +43,13 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button className={styles.btn} onClick={handleLogin}>Login</button>
+      <button className={styles.btn} onClick={handleLogin}>
+        Login
+      </button>
       <p className={styles.register_link}>
         Don't have an account? <Link to="/register">Register here</Link>.
       </p>
     </div>
-  
   );
 };
 
