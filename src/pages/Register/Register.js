@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../firebase/firebase";
-import styles from "./Register.module.css";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { FIREBASE_DB as db } from "../../firebase/firebase";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import styles from "./Register.module.css";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -15,7 +16,9 @@ const Register = () => {
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [fullNameError, setFullNameError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
@@ -52,7 +55,7 @@ const Register = () => {
     }
   };
 
-  const handleRegister = async () => {
+  const handleRegister = async (e) => {
     // Reset the error messages at the beginning of the function
     setFullNameError("");
     setEmailError("");
@@ -62,34 +65,17 @@ const Register = () => {
     setAddressError("");
 
     // Check if all fields are filled
-    if (!fullName) {
-      setFullNameError("Full name is mandatory");
-    }
-    if (!email) {
-      setEmailError("Email is mandatory");
-    }
-    if (!password) {
-      setPasswordError("Password is mandatory");
-    }
-    if (!confirmPassword) {
-      setConfirmPasswordError("Confirm password is mandatory");
-    }
-    if (!phone) {
-      setPhoneError("Phone is mandatory");
-    }
-    if (!address) {
-      setAddressError("Address is mandatory");
-    }
 
     // If any field is empty, stop the function
     if (
-      fullNameError ||
-      emailError ||
-      passwordError ||
-      confirmPasswordError ||
-      phoneError ||
-      addressError
+      !fullName ||
+      !email ||
+      !password ||
+      !confirmPassword ||
+      !phone ||
+      !address
     ) {
+      setErrorMessage("All fields are mandatory");
       return;
     }
 
@@ -130,7 +116,6 @@ const Register = () => {
   return (
     <div className={styles.form_container}>
       <h2>Register</h2>
-
       <div className={styles.input_field}>
         <label htmlFor="fullname">Full Name</label>
         <input
@@ -142,8 +127,7 @@ const Register = () => {
         />
         {fullNameError && <p>{fullNameError}</p>}
       </div>
-      {errorMessage && <p>{errorMessage}</p>}
-
+      {/* {errorMessage && <p>{errorMessage}</p>} */}
       <div className={styles.input_field}>
         <label htmlFor="email">Email</label>
         <input
@@ -155,7 +139,6 @@ const Register = () => {
         />
         {emailError && <p>{emailError}</p>}
       </div>
-
       <div className={styles.input_field}>
         <label htmlFor="phone">Phone</label>
         <input
@@ -167,7 +150,6 @@ const Register = () => {
         />
         {phoneError && <p>{phoneError}</p>}
       </div>
-
       <div className={styles.input_field}>
         <label htmlFor="address">Address</label>
         <input
@@ -179,33 +161,59 @@ const Register = () => {
         />
         {addressError && <p>{addressError}</p>}
       </div>
-
       <div className={styles.input_field}>
-        <label htmlFor="password">Password</label>
-        <input
-          className={styles.input}
-          type="password"
-          id="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
+        <div>
+          <label htmlFor="password">Password</label>
+        </div>
+        <div className={styles.input_icon_wrapper}>
+          <input
+            className={styles.input}
+            type={showPassword ? "text" : "password"}
+            id="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          <br />
+          {showPassword ? (
+            <FiEye
+              className={styles.input_icon}
+              onClick={() => setShowPassword(false)}
+            />
+          ) : (
+            <FiEyeOff
+              className={styles.input_icon}
+              onClick={() => setShowPassword(true)}
+            />
+          )}
+        </div>
         {passwordError && <p>{passwordError}</p>}
       </div>
-
       <div className={styles.input_field}>
         <label htmlFor="confirmPassword">Confirm Password</label>
-        <input
-          className={styles.input}
-          type="password"
-          id="confirmPassword"
-          value={confirmPassword}
-          onChange={handleConfirmPasswordChange}
-        />
+        <div className={styles.input_icon_wrapper}>
+          <input
+            className={styles.input}
+            type={showConfirmPassword ? "text" : "password"}
+            id="confirmPassword"
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+          />
+          {showConfirmPassword ? (
+            <FiEye
+              className={styles.input_icon}
+              onClick={() => setShowConfirmPassword(false)}
+            />
+          ) : (
+            <FiEyeOff
+              className={styles.input_icon}
+              onClick={() => setShowConfirmPassword(true)}
+            />
+          )}
+        </div>
         {confirmPasswordError && <p>{confirmPasswordError}</p>}
       </div>
-
       <br />
-
+      {errorMessage && <p>{errorMessage}</p>}
       <button className={styles.btn} onClick={handleRegister}>
         Register
       </button>

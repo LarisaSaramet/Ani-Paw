@@ -1,6 +1,5 @@
-// components/Navbar/index.js
-
 import React from "react";
+import Logo from "../Logo";
 import {
   Nav,
   NavLink,
@@ -10,8 +9,6 @@ import {
   NavBtnLink,
   LogoContainer,
 } from "./NavbarElements";
-
-import Logo from "./Logo";
 
 const Navbar = () => {
   return (

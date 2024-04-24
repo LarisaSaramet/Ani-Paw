@@ -4,10 +4,13 @@ import { FIREBASE_AUTH } from "../../firebase/firebase";
 import { Link } from "react-router-dom";
 import styles from "./Login.module.css";
 import Swal from "sweetalert2";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordError] = useState("");
 
   const handleLogin = async () => {
     try {
@@ -26,7 +29,7 @@ const Login = () => {
   return (
     <div className={styles.form_container}>
       <div className={styles.form_group}>
-        <label className={styles.label}>Email:</label>
+        <label htmlFor="email">Email</label>
         <input
           className={styles.input}
           type="email"
@@ -34,14 +37,31 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
-      <div className={styles.form_group}>
-        <label className={styles.label}>Password:</label>
-        <input
-          className={styles.input}
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+      <div className={styles.input_field}>
+        <label htmlFor="password">Password</label>
+        <div className={styles.input_icon_wrapper}>
+          <input
+            className={styles.input}
+            type={showPassword ? "text" : "password"}
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {showPassword ? (
+            <FiEye
+              className={styles.input_icon}
+              onClick={() => setShowPassword(false)}
+            />
+          ) : (
+            <FiEyeOff
+              className={styles.input_icon}
+              onClick={() => setShowPassword(true)}
+            />
+          )}
+        </div>
+        {passwordError && (
+          <p className={styles.error_message}>{passwordError}</p>
+        )}
       </div>
       <button className={styles.btn} onClick={handleLogin}>
         Login

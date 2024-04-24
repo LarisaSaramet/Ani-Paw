@@ -1,5 +1,5 @@
 import Home from "./pages/Home/index";
-import Navbar from "./Components/Navbar";
+import Navbar from "./Components/Navbar/Navbar";
 import Services from "./pages/Services/Services";
 import Review from "./pages/Review/Review";
 import Teams from "./pages/Team/Team";
@@ -11,8 +11,6 @@ import React from "react";
 import "./App.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-//import Logo from "./Components/Logo";
 
 function App() {
   return (

@@ -1,6 +1,6 @@
 // Reviews.js
-import React from 'react';
-import './Review.css'; // Make sure to import the CSS for styling
+import React from "react";
+import "./Review.module.css"; // Make sure to import the CSS for styling
 
 const reviewsData = [
   // ... (existing reviews)
@@ -15,8 +15,10 @@ const ReviewCard = ({ review }) => {
       <span className="review-date">{date}</span>
       <p className="review-content">{content}</p>
       <div className="review-rating">
-        {Array(rating).fill('★').join('')}
-        {Array(5 - rating).fill('☆').join('')}
+        {Array(rating).fill("★").join("")}
+        {Array(5 - rating)
+          .fill("☆")
+          .join("")}
       </div>
     </div>
   );
@@ -28,7 +30,7 @@ const Review = () => {
     <div className="reviews-section">
       <h1>Client Reviews</h1>
       <div className="reviews-container">
-        {reviewsData.map(review => (
+        {reviewsData.map((review) => (
           <ReviewCard key={review.id} review={review} />
         ))}
       </div>
@@ -37,4 +39,3 @@ const Review = () => {
 };
 
 export default Review;
-
